@@ -1,0 +1,27 @@
+[options]
+size 10
+tags COVERED UNCOVERED
+
+[script]
+read -sv comparator.v
+prep -top redundant_comparator -flatten
+
+[files]
+comparator.v
+
+[logic]
+if result("test_sva") == "PASS":
+	tag("COVERED")
+else:
+	tag("UNCOVERED")
+
+[report]
+if tags("UNCOVERED"):
+	print("Found %d mutations that can change the result undetected!" % tags("UNCOVERED"))
+
+if tags("COVERED")+tags("UNCOVERED"):
+    print("Coverage: %.2f%%" % (100.0*tags("COVERED")/(tags("COVERED")+tags("UNCOVERED"))))
+
+[test test_sva]
+expect PASS FAIL
+run bash $PRJDIR/test_sva.sh
