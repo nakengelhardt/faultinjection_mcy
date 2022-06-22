@@ -1,10 +1,11 @@
 [options]
-size 10
+size 0
+ # mode const0
 tags COVERED UNCOVERED
+# select * redundant_comparator/*\comp?.*
 
 [script]
-read -sv comparator.v
-prep -top redundant_comparator -flatten
+script read_design.ys
 
 [files]
 comparator.v
@@ -23,5 +24,6 @@ if tags("COVERED")+tags("UNCOVERED"):
     print("Coverage: %.2f%%" % (100.0*tags("COVERED")/(tags("COVERED")+tags("UNCOVERED"))))
 
 [test test_sva]
+maxbatchsize 10
 expect PASS FAIL
 run bash $PRJDIR/test_sva.sh

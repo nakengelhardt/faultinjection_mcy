@@ -1,0 +1,5 @@
+read -sv comparator.v
+hierarchy -top redundant_comparator
+proc
+flatten
+clean
