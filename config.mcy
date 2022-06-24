@@ -1,8 +1,8 @@
 [options]
 size 0
- # mode const0
+mode inv
 tags COVERED UNCOVERED
-# select * redundant_comparator/*\comp?.*
+# select redundant_comparator/*\comp?.*
 
 [script]
 script read_design.ys

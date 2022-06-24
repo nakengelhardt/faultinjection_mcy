@@ -13,35 +13,10 @@ smtbmc boolector
 --pycode-begin--
 output("read -define MUTIDX=%s" % task)
 --pycode-end--
-read -formal mutated.v
-read -formal properties.v
-prep -top top
+read -formal mutated.sv
+read -formal properties.sv
+prep -top sva_tb
 
 [files]
-mutated.v
-
-[file properties.v]
-module top(
-	input [7:0] A,
-	input [7:0] B
-);
-
-reg [7:0] mutsel = 8'd `MUTIDX;
-
-wire A_EQ_B;
-wire error;
-
-redundant_comparator dut (
-	.A(A),
-	.B(B),
-	.mutsel(mutsel),
-	.A_EQ_B(A_EQ_B),
-	.error(error)
-);
-
-always @(*) begin
-	if (A != B)
-		assert( !A_EQ_B || error );
-end
-
-endmodule
+mutated.sv
+properties.sv

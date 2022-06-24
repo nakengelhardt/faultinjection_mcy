@@ -4,10 +4,11 @@ exec 2>&1
 set -ex
 
 ## set up files
-ln -s ../../test_sva.sby .
+ln -s $PRJDIR/test_sva.sby .
+ln -s $PRJDIR/properties.sv .
 
 ## create the mutated design
-bash $SCRIPTS/create_mutated.sh -c -o mutated.v
+bash $SCRIPTS/create_mutated.sh -c -o mutated.sv
 
 while read idx mut; do
 	## run formal property check
